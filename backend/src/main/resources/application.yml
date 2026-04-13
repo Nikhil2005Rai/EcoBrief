@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ai_meeting_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
+    username: root
+    password: NikhilRai2005
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY:change-me}
+        chat:
+          options:
+            model: gemini-2.5-flash
+
+app:
+  frontend-url: http://localhost:5173
+  jwt:
+    secret: ${JWT_SECRET:VGhpc0lzQURlbW9TZWNyZXRLZXlGb3JKV1RUaGF0SXNMb25nRW5vdWdoMTIzNDU2}
+    expiration-ms: 86400000
+  file-storage:
+    upload-dir: uploads
+    max-file-size-mb: 100
+  transcription:
+    api-key: ${TRANSCRIPTION_API_KEY:${GEMINI_API_KEY:change-me}}
+    model: ${TRANSCRIPTION_MODEL:gemini-2.5-flash}
+    inline-max-file-size-mb: 15
+
+server:
+  port: 8080

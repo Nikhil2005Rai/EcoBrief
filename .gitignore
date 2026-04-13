@@ -1,0 +1,13 @@
+backend/target/
+backend/uploads/
+backend/.env
+frontend/dist/
+frontend/node_modules/
+.idea/
+*.iml
+
+
+.env
+.env.*
+.env*
+.env.example
