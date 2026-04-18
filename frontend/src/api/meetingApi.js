@@ -17,11 +17,7 @@ export const uploadMeeting = async ({ file, title }) => {
     formData.append('title', title);
   }
 
-  const { data } = await axiosClient.post('/meeting/upload', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
+  const { data } = await axiosClient.post('/meeting/upload', formData);
 
   return data;
 };

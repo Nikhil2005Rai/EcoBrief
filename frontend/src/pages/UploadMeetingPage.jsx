@@ -23,7 +23,15 @@ function UploadMeetingPage() {
       const meeting = await uploadMeeting({ title, file });
       navigate(`/meeting/${meeting.id}`);
     } catch (requestError) {
-      setError(requestError.response?.data?.message || 'Upload failed');
+      const apiMessage = requestError.response?.data?.message;
+      const status = requestError.response?.status;
+
+      if (status === 401) {
+        setError('Your session has expired. Please sign in again and retry the upload.');
+        return;
+      }
+
+      setError(apiMessage || requestError.message || 'Upload failed');
     } finally {
       setLoading(false);
     }
@@ -34,14 +42,14 @@ function UploadMeetingPage() {
       <div className="page-header">
         <div>
           <span className="eyebrow">Upload</span>
-          <h1>Add a new meeting recording</h1>
-          <p>Supported formats are mp3, wav, flac, aac, ogg, webm, m4a, and mp4. The backend validates file size and format.</p>
+          <h1>New capture</h1>
+          <p>Drop in a recording and let EchoBrief turn it into a clean note with transcript, summary, and action items.</p>
         </div>
       </div>
 
       <form className="card upload-form" onSubmit={handleSubmit}>
         <label>
-          Meeting Title
+          Note title
           <input
             type="text"
             value={title}
@@ -59,12 +67,12 @@ function UploadMeetingPage() {
             onChange={(event) => setFile(event.target.files?.[0] || null)}
           />
           <span className="file-dropzone">
-            <span className="file-dropzone-icon">Wave</span>
+            <span className="file-dropzone-icon">Capture</span>
             <strong>{file ? file.name : 'Choose or drop an audio file'}</strong>
             <small>
               {file
                 ? `${(file.size / (1024 * 1024)).toFixed(2)} MB selected`
-                : 'Large meetings are uploaded and processed securely on the backend.'}
+                : 'Files are uploaded securely and organized like a notebook entry.'}
             </small>
           </span>
         </label>

@@ -35,9 +35,8 @@ function MeetingDetailPage() {
     <section className="page-section">
       <div className="page-header">
         <div>
-          <span className="eyebrow">Meeting Detail</span>
           <h1>{meeting.title}</h1>
-          <p>{new Date(meeting.createdAt).toLocaleString()}</p>
+          <p>Capture details and AI notes for this meeting.</p>
         </div>
       </div>
 

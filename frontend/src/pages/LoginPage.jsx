@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login, signup } from '../api/authApi';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 function LoginPage() {
   const [mode, setMode] = useState('login');
@@ -10,6 +11,7 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login: saveAuth } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,12 +39,40 @@ function LoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-copy">
+          <div className="auth-topbar">
+            <div className="brand auth-brand">
+              <span className="brand-mark">EB</span>
+              <div>
+                <strong>EchoBrief</strong>
+                <p>Your meeting second brain</p>
+              </div>
+            </div>
+            <button type="button" className="ghost-button theme-toggle" onClick={toggleTheme}>
+              {isDark ? 'Light theme' : 'Dark theme'}
+            </button>
+          </div>
+
           <span className="eyebrow">Production-ready meeting intelligence</span>
-          <h1>Turn raw audio into crisp transcripts, key points, and action items.</h1>
+          <h1>Capture ideas, decisions, and next steps in one place.</h1>
           <p>
-            Upload meetings, run speech-to-text, and generate structured summaries
-            that your team can actually use.
+            EchoBrief turns meeting audio into clean transcripts, structured summaries,
+            and practical action items that are easy to scan later.
           </p>
+
+          <div className="auth-highlights">
+            <div>
+              <strong>Capture</strong>
+              <span>Upload audio and process it automatically.</span>
+            </div>
+            <div>
+              <strong>Brief</strong>
+              <span>Summaries stay short, structured, and useful.</span>
+            </div>
+            <div>
+              <strong>Recall</strong>
+              <span>Review meetings from a calm workspace built for speed.</span>
+            </div>
+          </div>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>

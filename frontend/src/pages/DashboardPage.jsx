@@ -28,27 +28,43 @@ function DashboardPage() {
       <div className="page-header">
         <div>
           <span className="eyebrow">Dashboard</span>
-          <h1>Recent meeting intelligence</h1>
-          <p>Review meeting summaries, action items, and transcript status from one place.</p>
+          <h1>Home</h1>
+          <p>Scan the latest meeting notes, highlights, and follow-ups without digging through recordings.</p>
         </div>
-        <Link to="/upload" className="primary-button">Upload meeting</Link>
+        <Link to="/upload" className="primary-button">New capture</Link>
+      </div>
+
+      <div className="hero-panel">
+        <div>
+          <span className="hero-label">Notebook view</span>
+          <h2>Everything your team said, refined into a simple workspace.</h2>
+          <p>
+            EchoBrief keeps transcripts, summaries, and action items organized like a
+            well-kept notebook.
+          </p>
+        </div>
+        <div className="hero-metrics">
+          <div>
+            <strong>{meetings.length}</strong>
+            <span>Notes saved</span>
+          </div>
+          <div>
+            <strong>{actionItemCount}</strong>
+            <span>Action items</span>
+          </div>
+        </div>
       </div>
 
       <div className="stats-grid">
         <article className="stat-card">
           <span className="stat-label">Meetings</span>
           <strong>{meetings.length}</strong>
-          <p>Total recordings processed in your workspace.</p>
+          <p>Total recordings processed in EchoBrief.</p>
         </article>
         <article className="stat-card accent">
           <span className="stat-label">Action Items</span>
           <strong>{actionItemCount}</strong>
           <p>Tasks extracted from AI summaries and next steps.</p>
-        </article>
-        <article className="stat-card">
-          <span className="stat-label">Latest Activity</span>
-          <strong>{meetings[0] ? new Date(meetings[0].createdAt).toLocaleDateString() : 'No uploads yet'}</strong>
-          <p>Most recent meeting processed by the backend.</p>
         </article>
       </div>
 
@@ -65,10 +81,6 @@ function DashboardPage() {
       <div className="meeting-grid">
         {meetings.map((meeting) => (
           <Link key={meeting.id} to={`/meeting/${meeting.id}`} className="meeting-card">
-            <div className="meeting-card-top">
-              <span className="status-pill">Processed</span>
-              <span>{new Date(meeting.createdAt).toLocaleString()}</span>
-            </div>
             <h2>{meeting.title}</h2>
             <p>{meeting.summary || 'Summary will appear here after processing.'}</p>
             <div className="chip-row">
